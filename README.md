@@ -25,7 +25,7 @@ Segun Elena Jurado Málaga, Este modelo se considera como Automata Incompleto ya
 
 De igual manera Elena Jurado menciona que "Las gramáticas regulares generan lenguajes regulares que pueden ser representados mediante expresiones regulares. A su vez, estos lenguajes pueden ser reconocidos por Auómatas Finitoss" dejandonos que nuestro automata mencionado anteriormente de igual manera se puede mostrar en una expresión regular siendo la de nuestro caso:
 
-<center>^D(el$|a(ro|gor|e)$|in$)</center>
+^D(el$|a(ro|gor|e)$|in$)
 
 # Implemetacion
 
