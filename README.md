@@ -9,14 +9,18 @@ Las palabras de este idioma que utilizaré en este proyecto son:
 * Daro - Palabra Sindarin que significa 'Descender'.
 * Del - 'Horror'.
 * Din - 'Silencioso'.
+
 Para este proyecto ocuparemos un AFD (Automata Finito Deterministico), estos, segun el libro "Teoría de autómatas y lenguajes formales" escrito por Elena Jurado Málaga, "Los Autómatas Finitos son máquinas teóricas que van cambiando de estado dependiendo de la entrada que reciban." en estos automatas solo exisen 2 tipos de salidas: aceptado y no aceptado.
 
 # Modelos
 Para nuestro caso, nuestro automata solo será valido para las palabras ya mencionadas, por ende solo para ese alfabeto, siendo este:
 A={D,a,e,g,o,r,l,i,n}
 Para el cual, obtubimos este diagrama para el automata:
+
 ![image](https://github.com/user-attachments/assets/73eaa9fc-3fc6-4eeb-b00e-992106bf8d4c)
+
 Segun Elena Jurado Málaga, Este modelo se considera como Automata Incompleto ya que tiene situaciones que no están definidas, las cuales deberían considerarse como situaciones de error, tambien menciona que "Si una cadena hace llegar al automata hasta una situación no definida, consideraremos que la cadena no ha sido reconocida por dicho autómata" dejandonos que no está mal la implementacion, ya que al no ser parte de las situaciones, marcaría falso (siendo la respuesta que buscamos), sin embargo, hay una manera de implementarlo de manera completa, para la cual se consideran todos los casos, esta quedaría de esta manera:
+
 ![image](https://github.com/user-attachments/assets/4db0b450-e38a-4e3c-97b9-1a622f1ebe44)
 
 
