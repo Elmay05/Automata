@@ -44,3 +44,5 @@ Para poder implementar nuestras pruevas de manera correcta, en el caso de la D, 
 Colaboradores de Wikipedia. (2024, 2 abril). Lenguas élficas. Wikipedia, la Enciclopedia Libre. https://es.wikipedia.org/wiki/Lenguas_%C3%A9lficas 
 
 Jurado Málaga, J. Teoría de autómatas y lenguajes formales. Universidad de Extremadura, Servicio de Publicaciones, 2008. ISBN 978-84-691-6345-0 [http://hdl.handle.net/10662/2367] 
+
+Universidad de Valladolid. (s. f.). Tema 2. La sintaxis [Diapositivas]. https://www.infor.uva.es/~calonso/IAI/PracticasProlog/Tema2/Tema%202.%20La%20Sintaxis.pdf
