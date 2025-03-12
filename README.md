@@ -30,6 +30,12 @@ De igual manera Elena Jurado menciona que "Las gramáticas regulares generan len
 # Implemetacion
 
 # Pruebas
+Para poder implementar nuestras pruevas de manera correcta, en el caso de la D, la guardaremos con comillas simples ya que de esta manera prolog no la tomará como variable, si no que la usará como un Átomo (una constante), ya que según la Universidad de Valladolid, la forma de guardar constantes átomo es:
+- Empezando por minúsculas
+- Puede tener "_" (subrayado)
+- Si va entre comillas simples('Esta es la que nos interesa') cualquier carácter
+
+
 
 # Análisis
 
