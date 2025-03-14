@@ -30,6 +30,12 @@ De igual manera Elena Jurado menciona que "Las gramáticas regulares generan len
 # Implemetacion
 
 # Pruebas
+Para poder implementar nuestras pruevas de manera correcta, en el caso de la D, la guardaremos con comillas simples ya que de esta manera prolog no la tomará como variable, si no que la usará como un Átomo (una constante), ya que según la Universidad de Valladolid, la forma de guardar constantes átomo es:
+- Empezando por minúsculas
+- Puede tener "_" (subrayado)
+- Si va entre comillas simples('Esta es la que nos interesa') cualquier carácter
+
+
 
 # Análisis
 
@@ -38,3 +44,5 @@ De igual manera Elena Jurado menciona que "Las gramáticas regulares generan len
 Colaboradores de Wikipedia. (2024, 2 abril). Lenguas élficas. Wikipedia, la Enciclopedia Libre. https://es.wikipedia.org/wiki/Lenguas_%C3%A9lficas 
 
 Jurado Málaga, J. Teoría de autómatas y lenguajes formales. Universidad de Extremadura, Servicio de Publicaciones, 2008. ISBN 978-84-691-6345-0 [http://hdl.handle.net/10662/2367] 
+
+Universidad de Valladolid. (s. f.). Tema 2. La sintaxis [Diapositivas]. https://www.infor.uva.es/~calonso/IAI/PracticasProlog/Tema2/Tema%202.%20La%20Sintaxis.pdf
