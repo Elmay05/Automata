@@ -21,7 +21,8 @@ Para el cual, obtubimos este diagrama para el automata:
 
 Segun Elena Jurado Málaga, Este modelo se considera como Automata Incompleto ya que tiene situaciones que no están definidas, las cuales deberían considerarse como situaciones de error, tambien menciona que "Si una cadena hace llegar al automata hasta una situación no definida, consideraremos que la cadena no ha sido reconocida por dicho autómata" dejandonos que no está mal la implementacion, ya que al no ser parte de las situaciones, marcaría falso (siendo la respuesta que buscamos), sin embargo, hay una manera de implementarlo de manera completa, para la cual se consideran todos los casos, esta quedaría de esta manera:
 
-![image](https://github.com/user-attachments/assets/4db0b450-e38a-4e3c-97b9-1a622f1ebe44)
+![image](https://github.com/user-attachments/assets/599cf319-3c73-42bd-9019-a71f06f28757)
+
 
 De igual manera Elena Jurado menciona que "Las gramáticas regulares generan lenguajes regulares que pueden ser representados mediante expresiones regulares. A su vez, estos lenguajes pueden ser reconocidos por Auómatas Finitoss" dejandonos que nuestro automata mencionado anteriormente de igual manera se puede mostrar en una expresión regular siendo la de nuestro caso:
 
