@@ -31,7 +31,7 @@ De igual manera Elena Jurado menciona que "Las gramáticas regulares generan len
 ^D(el$|a(ro|gor|e)$|in$)
 
 # Implemetacion
-Para implementar nuestro AFD primero defino los estados, el origen, el destino y el simbolo que los mueve a ese destino.
+Ya que tenemos definido nuestro automata, ahora lo traducimos a un archivo prolog, para esto primero definimos los estados, el origen, el destino y el simbolo que los mueve a ese destino.
 ```prolog
 % move(Origen, Destino, simbolo)
 move(a1, a2, 'D').
@@ -46,15 +46,61 @@ move(a7,a8,o).
 move(a8,a4,r).
 move(a5,a4,l).
 move(a9,a4,n).
-
 ```
+Una vez que tenemos esto, ya podemos empezar a trabajar nuestras reglas, comenzando por el estado de aceptacion el cual nos ayudará a verificar si los arreglos dados son verdaderos o falsos, en nuestro caso será a4, todo fuera de este estado se considerará falso
+```prolog
+estado_aceptacion(a4).
+```
+Ya que tenemos nuestros estados y los simbolos que nos llevan a ellos, comenzaremos a implementar las reglas que nos ayudarán a recorrer los arreglos.
+
+Tenemos nuestra funcion que será llamada en la terminal 
+```prolog
+analisisDFA(InputList) :-
+    ayuda_analisis_DFA(InputList, a1).
+```
+Estat resive una lista la cual es mandada a otra funcion qeu nos ayudará a revisar el DFA junto con el estado inicial ya definido (a1).
+
+Una vez que se envia el arreglo con el estado inicial, se ejecuta la regla "ayuda_analisis_DFA"
+```prolog
+ayuda_analisis_DFA([], EstadoActual) :-
+    %Este sirve para corroborar si el estado actual es igual al aceptado de arriba
+    estado_aceptacion(EstadoActual), 
+    %Si este falla, se va abajo
+    write('Accepted').
+```
+Tenemos este caso base el cual se ejecutará cuando el arreglo esté vacío, en este se pasa la regla "estado_aceptacion" junto con el estado en el qeu terminó el recorrido, como esa regla la definimos anteriormente con un atomo y no una variable, lo que hace es que comparará el estado declarado con el actual, si es el mismo, mandará un mensaje a la consola mencionando que fue aceptado, de lo contrario, se saldrá de la regla y al no tener otro caso con arreglo vacío, prolog lo marcará como falso.
+
+Nuestra siguiente regla es:
+```prolog
+ayuda_analisis_DFA([Simbolo|Resto], EstadoActual) :-
+    move(EstadoActual, SiguienteEstado, Simbolo),
+    ayuda_analisis_DFA(Resto, SiguienteEstado).
+```
+Prolog utiliza esta regla mientras el arreglo enviado por "analisisDFA" no esté vacío, en esta separamos la cabeza del arreglo con el resto y lo comparamos con el estado actual, (en la primer iteración el estado actual es a1 ya que es el inicial) y ejecutamos la regla "move(Origen, Destino, simbolo)", esta la declaramos anteriormente con atomos, que, como ya mencionamos, esto hace que compare los datos en lugar de rellenar los datos(esto si fueran variables).Prolog comparará con cada una de los "move" hasta encontrar con uno que coinsida,como al momento de pasarlo, solo enviamos el "EstadoActual" y el "Simbolo", prolog al encontrar el match, rellenará la variable "SiguienteEstado" con el dato con el que hizo match, si no coincide, devolverá falso, de lo contrario llama nuevamente a la función "ayuda_analisis_DFA" pero ahora manda el resto de la cadena y el estado siguiente (siendo este el que encontró con el match) ya que ese es ahora el "Estado Actual".
+Toda esta codificacion se encuentra en el archivo [test.pl](https://github.com/Elmay05/Automata/blob/main/test.pl), si la palabra se encuentra en el idioma devuelve verdadero, de lo contrario, falso, recordando que la mayuscula inicial (D) se debe escribir entre 'comillas simples' para ser aceptada, si no, prolog la tomará como variable.
+
 # Pruebas
 Para poder implementar nuestras pruevas de manera correcta, en el caso de la D, la guardaremos con comillas simples ya que de esta manera prolog no la tomará como variable, si no que la usará como un Átomo (una constante), ya que según la Universidad de Valladolid, la forma de guardar constantes átomo es:
 - Empezando por minúsculas
 - Puede tener "_" (subrayado)
-- Si va entre comillas simples('Esta es la que nos interesa') cualquier carácter
+- Si va entre comillas simples('Esta es la que nos interesa') cualquier carácter.
+Para ejecutar el programa, hay que abrir el programa [test.pl](https://github.com/Elmay05/Automata/blob/main/test.pl) en una terminal de prolog. En el caso de Windows, se coloca el directorio donde se encuentra el archivo con cd *Inserte ruta donde está el archivo* y se escribe swipl test.pl
 
+## Pruevas exitosas
+A continuacion se muestran los comandos con los que prolog debería devolver verdadero ya que son palabras definidas en el autómata y lenguaje:
+- analisisDFA(['D',a,e]).
+- analisisDFA(['D',a,g,o,r]).
+- analisisDFA(['D',a,r,o]).
+- analisisDFA(['D',e,l]).
+- analisisDFA(['D',i,n]).
 
+## Pruevas fallidas
+A continuacion se muestran palabras formadas parecidas a las del lenguaje y con el mismo abecedario pero al no estar en él, estas serán devueltas con falso:
+- analisisDFA(['D',i,n,o]).
+- analisisDFA(['D',i,g,e,l]).
+- analisisDFA(['D',i,l]).
+- analisisDFA(['D',a,r]).
+- analisisDFA(['D',a,r,o,n]).
 
 # Análisis
 
