@@ -23,12 +23,30 @@ Segun Elena Jurado Málaga, Este modelo se considera como Automata Incompleto ya
 
 ![image](https://github.com/user-attachments/assets/4db0b450-e38a-4e3c-97b9-1a622f1ebe44)
 
+https://dehesa.unex.es:8443/flexpaper/template.html?path=https://dehesa.unex.es:8443/bitstream/10662/2367/1/978-84-691-6345-0.pdf#page=58 
+
 De igual manera Elena Jurado menciona que "Las gramáticas regulares generan lenguajes regulares que pueden ser representados mediante expresiones regulares. A su vez, estos lenguajes pueden ser reconocidos por Auómatas Finitoss" dejandonos que nuestro automata mencionado anteriormente de igual manera se puede mostrar en una expresión regular siendo la de nuestro caso:
 
 ^D(el$|a(ro|gor|e)$|in$)
 
 # Implemetacion
+Para implementar nuestro AFD primero defino los estados, el origen, el destino y el simbolo que los mueve a ese destino.
+```prolog
+% move(Origen, Destino, simbolo)
+move(a1, a2, 'D').
+move(a2,a5,e).
+move(a2, a3,a).
+move(a2,a9,i).
+move(a3, a4, e).
+move(a3,a6,r).
+move(a3,a7,g).
+move(a6,a4,o).
+move(a7,a8,o).
+move(a8,a4,r).
+move(a5,a4,l).
+move(a9,a4,n).
 
+```
 # Pruebas
 Para poder implementar nuestras pruevas de manera correcta, en el caso de la D, la guardaremos con comillas simples ya que de esta manera prolog no la tomará como variable, si no que la usará como un Átomo (una constante), ya que según la Universidad de Valladolid, la forma de guardar constantes átomo es:
 - Empezando por minúsculas
