@@ -30,6 +30,7 @@ De igual manera Elena Jurado menciona que "Las gramáticas regulares generan len
 ^D(el$|a(ro|gor|e)$|in$)
 
 # Implementación
+### Automata
 Ya que tenemos definido nuestro autómata, ahora lo traducimos a un archivo prolog, para esto primero definimos los estados, el origen, el destino y el símbolo que los mueve a ese destino.
 ```prolog
 % move(Origen, Destino, símbolo)
@@ -78,33 +79,67 @@ ayuda_analisis_DFA([Simbolo|Resto], EstadoActual) :-
 Prolog utiliza esta regla mientras el arreglo enviado por "analisisDFA" no esté vacío, en esta separamos la cabeza del arreglo con el resto y lo comparamos con el estado actual, (en la primer iteración el estado actual es a1 ya que es el inicial) y ejecutamos la regla "move(Origen, Destino, simbolo)", ésta la declaramos anteriormente con átomos, que, como ya mencionamos, esto hace que compare los datos en lugar de rellenar los datos(esto si fueran variables).Prolog comparará con cada una de los "move" hasta encontrar con uno que coincida como al momento de pasarlo, solo enviamos el "EstadoActual" y el "Simbolo", prolog al encontrar el match, rellenará la variable "SiguienteEstado" con el dato con el que hizo match, si no coincide, devolverá falso, de lo contrario llama nuevamente a la función "ayuda_analisis_DFA" pero ahora manda el resto de la cadena y el estado siguiente (siendo este el que encontró con el match) ya que ese es ahora el "Estado Actual".
 Toda esta codificación se encuentra en el archivo [test.pl](https://github.com/Elmay05/Automata/blob/main/test.pl), si la palabra se encuentra en el idioma devuelve verdadero, de lo contrario, falso, recordando que la mayuscula inicial (D) se debe escribir entre 'comillas simples' para ser aceptada, si no, prolog la tomará como variable.
 
+### Expresión regular
+Por otro lado, tenemos nuestra expreción regular, para esta ocupamos un codigo mas corto el cual fue 
+```Prolog
+:- use_module(library(pcre)).
+
+analisisDFA(Palabra) :-
+   regex_match('^D(el$|a(ro|gor|e)$|in$)', Palabra),
+    write('Accepted').
+
+regex_match(Regex, Atom) :-
+    re_match(Regex, Atom). %Funcion que compara el atomo con expresión regular, ocupa modulo library(pcre)
+
+
+```
+En este hacemos uso del módulo "library(pcre)", comenzamos analizando nuestra palabra (recordando que esta se escribe entre comillas por la mayúscula inicial y trabajamos con átomos), esta palabra la mandamos a la función que analizará el átomo con la expresión regular, aquí ocupamos el módulo que incluimos con la función "re_match" esta comparará el átomo con la expresión regular que le mandamos.
+https://www.swi-prolog.org/pldoc/doc_for?object=re_match/2
 # Pruebas
 Para poder implementar nuestras pruebas de manera correcta, en el caso de la D, la guardaremos con comillas simples ya que de esta manera prolog no la tomará como variable, si no que la usará como un Átomo (una constante), ya que, según la Universidad de Valladolid, la forma de guardar constantes átomo es:
 - Empezando por minúsculas
 - Puede tener "_" (subrayado)
 - Si va entre comillas simples('Esta es la que nos interesa') cualquier carácter.
+### Automata
 Para ejecutar el programa, hay que abrir el programa [test.pl](https://github.com/Elmay05/Automata/blob/main/test.pl) en una terminal de prolog. En el caso de Windows, se coloca el directorio donde se encuentra el archivo con cd *Inserte ruta donde está el archivo* y se escribe swipl test.pl
-
-### Pruebas exitosas
+### Expresión regular
+Para ejecutar el programa, hay que abrir el programa [regex.pl](https://github.com/Elmay05/Automata/blob/main/regex.pl) en una terminal de prolog. En el caso de Windows, se coloca el directorio donde se encuentra el archivo con cd *Inserte ruta donde está el archivo* y se escribe swipl regex.pl
+### Pruebas exitosas Automata
 A continuación se muestran los comandos con los que prolog debería devolver verdadero ya que son palabras definidas en el autómata y lenguaje:
 - analisisDFA(['D',a,e]).
 - analisisDFA(['D',a,g,o,r]).
 - analisisDFA(['D',a,r,o]).
 - analisisDFA(['D',e,l]).
 - analisisDFA(['D',i,n]).
-
-### Pruebas fallidas
+### Pruebas exitosas expresión regular
+A continuación se muestran los comandos con los que prolog debería devolver verdadero ya que son palabras definidas en el autómata y lenguaje:
+- analisisDFA('Dae').
+- analisisDFA('Dagor').
+- analisisDFA('Daro').
+- analisisDFA('Del').
+- analisisDFA('Din').
+### Pruebas fallidas Automata
 A continuación se muestran palabras formadas parecidas a las del lenguaje y con el mismo abecedario pero al no estar en él, estas serán devueltas con falso:
 - analisisDFA(['D',i,n,o]).
 - analisisDFA(['D',i,g,e,l]).
 - analisisDFA(['D',i,l]).
 - analisisDFA(['D',a,r]).
 - analisisDFA(['D',a,r,o,n]).
+### Pruebas fallidas expresión regular
+A continuación se muestran palabras formadas parecidas a las del lenguaje y con el mismo abecedario pero al no estar en él, estas serán devueltas con falso:
+- analisisDFA('Dino').
+- analisisDFA('Digel').
+- analisisDFA('Dil').
+- analisisDFA('Dar').
+- analisisDFA('Daron').
 
 # Análisis
 ### Complejidad temporal 
 Este programa utiliza recursión ya que así suele trabajar prolog, en específico, utiliza el derecha tail, esto ya que el programa acaba cuando el arreglo fue recorrido por completo, ya no tiene más operaciones ni motivo para regresar en las funciones ya pasadas (como lo sería con la recursividad izquierda/Head).
 Al ser un código que acaba al recorrer todo el arreglo, se podría decir que actúa similar a un ciclo "for" recorriendo el largo del arreglo, por ello mismo, podemos concluir que la complejidad asintótica de este programa es de O(n).
+### Complejidad espacial
+Para la implementacion del regex, tenemos una complejidad de O(1) ya que simplemente ocupamos la memoria para la cadena de entrada y la expresión regular.
+En cambio, para el Automata, ocupamos n+1 llamadas a memoria, n por la parte de resto de la cadena que enviamos [H|R] y una mas para verificar si la cadena ya está vacía y verificar el estado de aceptación, entonces en este caso tenemos una complejidad temporal de O(n).
 ### Otras implementaciones
 Respecto a otras soluciones, pregunté a Chat GPT sobre alguna otra manera de implementar este código, a lo que me respondió con hacer uso de diccionarios:
 ```prolog
@@ -155,3 +190,5 @@ Jurado Málaga, J. Teoría de autómatas y lenguajes formales. Universidad de Ex
 Universidad de Valladolid. (s. f.). Tema 2. La sintaxis [Diapositivas]. https://www.infor.uva.es/~calonso/IAI/PracticasProlog/Tema2/Tema%202.%20La%20Sintaxis.pdf
 
 Comparación de implementaciones de Prolog. (s.f.). En AcademiaLab. Recuperado de https://academia-lab.com/enciclopedia/comparacion-de-implementaciones-de-prolog/
+
+re_match/2. (s. f.). https://www.swi-prolog.org/pldoc/doc_for?object=re_match/2
