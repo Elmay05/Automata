@@ -27,3 +27,29 @@ ayuda_analisis_DFA([Simbolo|Resto], EstadoActual) :-
     ayuda_analisis_DFA(Resto, SiguienteEstado).
 
 
+pruebas_aceptadas():-
+    write('Pruevas aceptadas'),nl,
+    write("analisisDFA(['D',a,e])."),nl,
+    analisisDFA(['D',a,e]),nl,
+    write("analisisDFA(['D',a,g,o,r])."),nl,
+    analisisDFA(['D',a,g,o,r]),nl,
+    write("analisisDFA(['D',a,r,o])."),nl,
+    analisisDFA(['D',a,r,o]),nl,
+    write("analisisDFA(['D',e,l])."),nl,
+    analisisDFA(['D',e,l]),nl,
+    write("analisisDFA(['D',i,n])."),nl,
+    analisisDFA(['D',i,n]),nl.
+
+
+pruebas_fallidas():-
+    write('Pruevas fallidas'),nl,
+    write("analisisDFA(['D',i,n,o])."),nl,
+    analisisDFA(['D',i,n,o]),nl|
+    write("analisisDFA(['D',i,g,e,l])."),nl,
+    analisisDFA(['D',i,g,e,l]),nl|
+    write("analisisDFA(['D',i,l])."),nl,
+    analisisDFA(['D',i,l]),nl|
+    write("analisisDFA(['D',a,r])."),nl,
+    analisisDFA(['D',a,r]),nl|
+    write("analisisDFA(['D',a,r,o,n])."),nl,
+    analisisDFA(['D',a,r,o,n]),nl.
